@@ -13,27 +13,135 @@
   limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="com.google.android.gms.location.sample.locationupdatesforegroundservice.MainActivity">
+    android:clipToPadding="false"
+    tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/request_location_updates_button"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/request_location_updates" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/remove_location_updates_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/remove_location_updates" />
-</LinearLayout>
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/activity_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            tools:context=".MainActivity">
+            <!--@string/appbar_scrolling_view_behavior-->
+            <!--app:layout_behavior="com.yxg.worker.behavior.FixScrollingFooterBehavior"-->
+
+            <!--style="@style/HeaderBar"-->
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <include layout="@layout/toolbar_search" />
+
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:elevation="1dp"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <ProgressBar
+                android:id="@android:id/empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateTint="?android:colorAccent"
+                android:indeterminateTintMode="src_in"
+                android:visibility="gone" />
+
+            <ViewStub
+                android:id="@+id/stub_no_filters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/spacing_huge"
+                android:layout="@layout/no_filters" />
+
+            <ViewStub
+                android:id="@+id/stub_no_connection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout="@layout/no_connection" />
+
+            <!--android:background="@drawable/fab"-->
+            <!--android:stateListAnimator="@animator/raise"-->
+            <ImageButton
+                android:id="@+id/fab"
+                android:layout_width="@dimen/fab_size"
+                android:layout_height="@dimen/fab_size"
+                android:layout_gravity="bottom|end"
+                android:layout_marginBottom="@dimen/padding_normal"
+                android:layout_marginRight="@dimen/padding_normal"
+                android:elevation="@dimen/z_fab"
+                android:stateListAnimator="@animator/raise"
+                app:srcCompat="@drawable/ic_add_dark" />
+
+            <ViewStub
+                android:id="@+id/stub_posting_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginBottom="@dimen/padding_normal"
+                android:layout_marginRight="@dimen/padding_normal"
+                android:layout="@layout/posting_progress" />
+
+            <Button
+                android:id="@+id/request_location_updates_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="160dp"
+                android:text="@string/request_location_updates"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/remove_location_updates_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="260dp"
+                android:text="@string/remove_location_updates"
+                android:visibility="gone" />
+
+        </android.support.design.widget.CoordinatorLayout>
+        <View
+            android:id="@+id/status_bar_background"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/dark_icon_half_alpha" />
+    </FrameLayout>
+
+    <!-- filter drawer -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/filters"
+        android:layout_width="@dimen/drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="@color/background_dark"
+        android:clipToPadding="false"
+        android:elevation="@dimen/z_drawer"
+        android:paddingBottom="@dimen/spacing_normal"
+        android:paddingTop="@dimen/spacing_normal"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+</android.support.v4.widget.DrawerLayout>
+
